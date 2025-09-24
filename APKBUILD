@@ -5,7 +5,7 @@
 
 _flavor="postmarketos-qcom-msm8916"
 pkgname=linux-$_flavor
-pkgver=6.12.45
+pkgver=6.12.48
 pkgrel=2
 pkgdesc="Mainline kernel fork for Qualcomm MSM8909/MSM8916/MSM8939 devices"
 arch="aarch64 armv7"
@@ -28,6 +28,7 @@ makedepends="
 	perl
 	postmarketos-installkernel
 	python3
+    rsync
 "
 replaces="linux-postmarketos-qcom-msm8909 linux-postmarketos-qcom-msm8939"
 
@@ -55,12 +56,13 @@ build() {
 	unset LDFLAGS
 	make ARCH="$_carch" CC="${CC:-gcc}" \
 		KBUILD_BUILD_VERSION=$((pkgrel + 1 ))
+    make headers
 }
 
 package() {
 	mkdir -p "$pkgdir"/boot
 
-	_install_targets="modules_install dtbs_install"
+	_install_targets="modules_install dtbs_install headers_install"
 
 	if [ -e "$builddir/arch/$_carch/boot/vmlinuz.efi" ]; then
 		# ZBOOT EFI decompressor for EFI booting
@@ -75,7 +77,7 @@ package() {
 		install -Dm644 "$builddir/arch/$_carch/boot/Image.gz" \
 			"$pkgdir/boot/vmlinuz"
 	else
-		_install_targets="zinstall modules_install dtbs_install"
+		_install_targets="zinstall modules_install dtbs_install headers_install"
 	fi
 
 	make $_install_targets \
@@ -83,7 +85,8 @@ package() {
 		INSTALL_PATH="$pkgdir"/boot \
 		INSTALL_MOD_PATH="$pkgdir" \
 		INSTALL_MOD_STRIP=1 \
-		INSTALL_DTBS_PATH="$pkgdir"/boot/dtbs
+		INSTALL_DTBS_PATH="$pkgdir"/boot/dtbs \
+        INSTALL_HDR_PATH="$pkgdir"
 	rm -f "$pkgdir"/lib/modules/*/build "$pkgdir"/lib/modules/*/source
 
 	install -D "$builddir"/include/config/kernel.release \
@@ -91,7 +94,7 @@ package() {
 }
 
 sha512sums="
-632509ff7cb96a11a01683f599c1fb576df595e3535436f23d1cd581224f0821b5f8f15b2bfda934453e3a9a7933a55a87d1eefc3a3c306c83b557a32044d565  linux-postmarketos-qcom-msm8916-v6.12.45-msm8916.tar.gz
+9f686ecdd611149f4468bc56397a55b8d64eaa0fd523df24909dee75a4ac11797ab5c021de545ec777ed4c0f75d91c9dc464ce2cbe877ea3a35fc8d31fee1dba  linux-postmarketos-qcom-msm8916-v6.12.48-msm8916.tar.gz
 2935a10166e0e8840b962ffe2062dcc2c49e925496e9269741f40d21c2e3b56e02292818f66a5192e3ee07b50ebf763eaf7223cb08044c4f63707859d83e8f3f  config-postmarketos-qcom-msm8916.aarch64
 3f64dbece4fe6c7c343162075a6abb1ffa34ca5a2857971c2051b88516569d468c5626b9f981bb4c2439e7b6649e61fae9c9cd3246ed2e0052ef180a1fb06336  config-postmarketos-qcom-msm8916.armv7
 "
