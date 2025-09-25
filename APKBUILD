@@ -54,7 +54,7 @@ prepare() {
 
 build() {
 	unset LDFLAGS
-	make ARCH="$_carch" CC="${CC:-gcc}" \
+	make -j$(nproc) ARCH="$_carch" CC="${CC:-gcc}" \
 		KBUILD_BUILD_VERSION=$((pkgrel + 1 ))
     make headers
 }
