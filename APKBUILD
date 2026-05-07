@@ -5,7 +5,7 @@
 
 _flavor="postmarketos-qcom-msm8916"
 pkgname=linux-$_flavor
-pkgver=6.12.85
+pkgver=6.12.86
 pkgrel=0
 pkgdesc="Mainline kernel fork for Qualcomm MSM8909/MSM8916/MSM8939 devices"
 arch="aarch64 armv7"
@@ -94,7 +94,7 @@ package() {
 }
 
 sha512sums="
-81002ef5697cb7d25e78a5e9effa6f0660ebbdb02295907192598eb656655353e4a2fb2c875cb4034dc397a4e04c6aab2a29e3027f39e8fa726b8e68f72b9ed7  linux-postmarketos-qcom-msm8916-v6.12.85-msm8916.tar.gz
+fd771dfbea11986e45a8681e7487c9e371f47b92be7f1e1e160274dc52875e0631a5e7482f0863534ddf46a05879dc989bda072a900e2198e63a4a249b3231f3  linux-postmarketos-qcom-msm8916-v6.12.86-msm8916.tar.gz
 2935a10166e0e8840b962ffe2062dcc2c49e925496e9269741f40d21c2e3b56e02292818f66a5192e3ee07b50ebf763eaf7223cb08044c4f63707859d83e8f3f  config-postmarketos-qcom-msm8916.aarch64
 3f64dbece4fe6c7c343162075a6abb1ffa34ca5a2857971c2051b88516569d468c5626b9f981bb4c2439e7b6649e61fae9c9cd3246ed2e0052ef180a1fb06336  config-postmarketos-qcom-msm8916.armv7
 "
