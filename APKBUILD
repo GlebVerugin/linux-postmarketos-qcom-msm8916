@@ -6,7 +6,7 @@
 _flavor="postmarketos-qcom-msm8916"
 pkgname=linux-$_flavor
 pkgver=6.12.94
-pkgrel=0
+pkgrel=1
 pkgdesc="Mainline kernel fork for Qualcomm MSM8909/MSM8916/MSM8939 devices"
 arch="aarch64 armv7"
 url="https://github.com/GlebVerugin/msm8916-linux"
@@ -18,6 +18,7 @@ options="!strip !check !tracedeps
 	pmb:kconfigcheck-usb
 "
 makedepends="
+	zstd
 	bison
 	findutils
 	flex
@@ -28,7 +29,7 @@ makedepends="
 	perl
 	postmarketos-installkernel
 	python3
-    rsync
+	rsync
 "
 replaces="linux-postmarketos-qcom-msm8909 linux-postmarketos-qcom-msm8939"
 
